@@ -35,15 +35,15 @@ document.querySelector(".weather").style.display = "none";
      
      
          if (data.weather[0].main == "Clouds"){
-             weatherIcon.src = "images/clouds.png";
+             weatherIcon.src = "imgs/clouds.png";
              } else if(data.weather[0].main == "Clear"){
-                 weatherIcon.src = "images/clear.png";
+                 weatherIcon.src = "imgs/clear.png";
                  } else if (data.weather[0].main == "Rain"){
-                     weatherIcon.src = "images/rain.png";
+                     weatherIcon.src = "imgs/rain.png";
                      } else if (dara.weather[0].main == "Drizzle"){
-                         weatherIcon.src = "images/drizzle.png";
+                         weatherIcon.src = "imgs/drizzle.png";
                          } else if (dara.weather[0].main == "Mist"){
-                             weatherIcon.src = "images/must.png";
+                             weatherIcon.src = "imgs/must.png";
                              }  
      
                              document.querySelector(".weather").style.display = "block";

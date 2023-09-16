@@ -6,16 +6,15 @@ const searchBox = document.querySelector(".search input");
 const searchBtn = document.querySelector(".search button");
 
 const weatherIcon = document.querySelector(".weather-icon");
+const city = document.querySelector("city");
 
 async function checkWeather(city){
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
 
     
 const weatherIcon = document.querySelector(".weather-icon");
-localStorage.setItem("checkWeather", checkWeather.value);
-localStorage.setItem("city", city.value);
-let getCheckWeather = localStorage.getItem("checkWeather");
-let getCity = localStorage.getItem("city");
+ localStorage.setItem("city", city);
+ let getCity = localStorage.getItem("city");
 
 
     if(response.status == 404) {
@@ -35,15 +34,15 @@ document.querySelector(".weather").style.display = "none";
      
      
          if (data.weather[0].main == "Clouds"){
-             weatherIcon.src = "imgs/clouds.png";
+             weatherIcon.src = "images/clouds.png";
              } else if(data.weather[0].main == "Clear"){
-                 weatherIcon.src = "imgs/clear.png";
+                 weatherIcon.src = "images/clear.png";
                  } else if (data.weather[0].main == "Rain"){
-                     weatherIcon.src = "imgs/rain.png";
+                     weatherIcon.src = "images/rain.png";
                      } else if (dara.weather[0].main == "Drizzle"){
-                         weatherIcon.src = "imgs/drizzle.png";
+                         weatherIcon.src = "images/drizzle.png";
                          } else if (dara.weather[0].main == "Mist"){
-                             weatherIcon.src = "imgs/must.png";
+                             weatherIcon.src = "images/must.png";
                              }  
      
                              document.querySelector(".weather").style.display = "block";

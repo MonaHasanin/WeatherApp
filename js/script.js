@@ -1,7 +1,8 @@
 const apiKey = "3abe2b05af26a43017e38244778cd638";
 //const apiKey = "863242cfb2b1d357e6093d9a4df19a4b";
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=matric=&q=";
- 
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+// const appid =`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appid}&units=metric`
+
 const searchBox = document.querySelector(".search input");
 const searchBtn = document.querySelector(".search button");
 
@@ -34,15 +35,15 @@ document.querySelector(".weather").style.display = "none";
      
      
          if (data.weather[0].main == "Clouds"){
-             weatherIcon.src = "images/clouds.png";
+             weatherIcon.src = "imgs/clouds.png";
              } else if(data.weather[0].main == "Clear"){
-                 weatherIcon.src = "images/clear.png";
+                 weatherIcon.src = "imgs/clear.png";
                  } else if (data.weather[0].main == "Rain"){
-                     weatherIcon.src = "images/rain.png";
+                     weatherIcon.src = "imgs/rain.png";
                      } else if (dara.weather[0].main == "Drizzle"){
-                         weatherIcon.src = "images/drizzle.png";
+                         weatherIcon.src = "imgs/drizzle.png";
                          } else if (dara.weather[0].main == "Mist"){
-                             weatherIcon.src = "images/must.png";
+                             weatherIcon.src = "imgs/must.png";
                              }  
      
                              document.querySelector(".weather").style.display = "block";

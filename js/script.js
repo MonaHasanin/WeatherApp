@@ -1,56 +1,65 @@
 const apiKey = "3abe2b05af26a43017e38244778cd638";
-//const apiKey = "863242cfb2b1d357e6093d9a4df19a4b";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
-// const appid =`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appid}&units=metric`
 
 const searchBox = document.querySelector(".search input");
-const searchBtn = document.querySelector(".search button");
-
 const weatherIcon = document.querySelector(".weather-icon");
-const city = document.querySelector("city");
+const city = document.querySelector(".city");
 
-async function checkWeather(city){
+async function checkWeather(city) {
+  try {
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+    const weatherData = await response.json();
 
-    
-const weatherIcon = document.querySelector(".weather-icon");
- localStorage.setItem("city", city);
- let getCity = localStorage.getItem("city");
-
-
-    if(response.status == 404) {
-document.querySelector(".error").style.display = "block";
-document.querySelector(".weather").style.display = "none";
-    } 
-    
-    else {
-        var data = await response.json();
-
-       // console.log(data);
-     
-         document.querySelector(".city").innerHTML = data.name;
-         document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
-         document.querySelector(".humidity").innerHTML = data.main.temp + "%";
-         document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
-     
-     
-         if (data.weather[0].main == "Clouds"){
-             weatherIcon.src = "imgs/clouds.png";
-             } else if(data.weather[0].main == "Clear"){
-                 weatherIcon.src = "imgs/clear.png";
-                 } else if (data.weather[0].main == "Rain"){
-                     weatherIcon.src = "imgs/rain.png";
-                     } else if (dara.weather[0].main == "Drizzle"){
-                         weatherIcon.src = "imgs/drizzle.png";
-                         } else if (dara.weather[0].main == "Mist"){
-                             weatherIcon.src = "imgs/must.png";
-                             }  
-     
-                             document.querySelector(".weather").style.display = "block";
-                             document.querySelector(".error").style.display = "none";
-     }
-   
+    if (weatherData.cod === "404") {
+      document.querySelector(".error").style.display = "block";
+      document.querySelector(".weather").style.display = "none";
+    } else {
+      const mainWeather = weatherData.weather[0].main;
+      displayWeatherInfo(weatherData.name, mainWeather, weatherData.main.temp);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
 }
-searchBtn.addEventListener("click", () => {
-    checkWeather(searchBox.value);
-})
+
+function displayWeatherInfo(cityName, weather, temperature) {
+  document.querySelector(".city").textContent = cityName;
+  document.querySelector(".temp").textContent = `${Math.round(temperature)}°C`;
+  document.querySelector(".humidity").textContent = "N/A"; // You can add humidity data
+  document.querySelector(".wind").textContent = "N/A"; // You can add wind data
+
+  setWeatherIcon(weather);
+  document.querySelector(".weather").style.display = "block";
+  document.querySelector(".error").style.display = "none";
+}
+
+function setWeatherIcon(weather) {
+  const weatherIcon = document.querySelector(".weather-icon");
+  switch (weather) {
+    case "Clouds":
+      weatherIcon.src = "imgs/clouds.png";
+      break;
+    case "Clear":
+      weatherIcon.src = "imgs/clear.png";
+      break;
+    case "Rain":
+      weatherIcon.src = "imgs/rain.png";
+      break;
+    case "Drizzle":
+      weatherIcon.src = "imgs/drizzle.png";
+      break;
+    case "Mist":
+      weatherIcon.src = "imgs/mist.png";
+      break;
+    default:
+      // Handle other weather conditions
+      break;
+  }
+}
+
+searchBox.addEventListener("input", () => {
+  const searchTerm = searchBox.value.trim();
+  if (searchTerm.length > 0) {
+    checkWeather(searchTerm);
+  }
+});
